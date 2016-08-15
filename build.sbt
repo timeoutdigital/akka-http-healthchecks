@@ -1,13 +1,13 @@
 name := "health-check"
-version := "1.0.0-SNAPSHOT"
+version := "1.0.0"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
 
-// TODO: add publishing config
-//private val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
-//val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
-//
-//publishTo := Some(timeOutReleases)
+val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
+
+val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
+
+publishTo := Some(timeOutReleases)
 
 val circeVersion = "0.5.0-M2"
 val akkaVersion = "2.4.9-RC2"
