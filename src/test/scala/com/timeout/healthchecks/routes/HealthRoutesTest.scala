@@ -15,7 +15,7 @@ class HealthRoutesTest extends FunSpec with ScalatestRouteTest with Matchers wit
 
       Get("/health") ~> HealthRoutes.health(ok1, ok2) ~> check {
         status shouldEqual OK
-        responseAs[String] shouldEqual """{"status":"OK","checks":["test1","test2"],"failures":[]}"""
+        responseAs[String] shouldEqual """{"status":"healthy","checks":["test1","test2"],"failures":[]}"""
       }
     }
 
@@ -26,7 +26,7 @@ class HealthRoutesTest extends FunSpec with ScalatestRouteTest with Matchers wit
 
       Get("/health") ~> HealthRoutes.health(ok, failed1, failed2) ~> check {
         status shouldEqual InternalServerError
-        responseAs[String] shouldEqual """{"status":"KO","checks":["test1","test2","test3"],"failures":["test2 failed: failed","test3 failed: exception"]}"""
+        responseAs[String] shouldEqual """{"status":"unhealthy","checks":["test1","test2","test3"],"failures":["test2 failed: failed","test3 failed: exception"]}"""
       }
     }
   }

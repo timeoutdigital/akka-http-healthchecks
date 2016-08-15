@@ -5,8 +5,8 @@ import akka.http.scaladsl.server.Directives._
 import de.heikoseeberger.akkahttpcirce.CirceSupport
 import io.circe.generic.JsonCodec
 import com.timeout.healthchecks._
-import cats.syntax.all._
-import cats.std.all._
+import cats.syntax.foldable._
+import cats.std.list._
 
 import scala.collection.convert.DecorateAsScala
 import scala.concurrent.{ExecutionContext, Future}
@@ -15,7 +15,7 @@ object HealthRoutes extends CirceSupport with DecorateAsScala {
 
   @JsonCodec case class HealthResult(status: String, checks: Seq[String], failures: Seq[String])
 
-  def status(s: Boolean) = if (s) "OK" else "KO"
+  def status(s: Boolean) = if (s) "healthy" else "unhealthy"
   def statusCode(s: Boolean) = if (s) OK else InternalServerError
 
   def health(checks: HealthCheck*)(implicit ec: ExecutionContext) = path("health") {
@@ -24,8 +24,8 @@ object HealthRoutes extends CirceSupport with DecorateAsScala {
         val result = r.sequenceU_
         val healthy = result.isValid
         val checkNames = checks.map(_.name)
-        val messages: Seq[String] = result.fold(_.map(identity).toList, _ => List())
-        statusCode(healthy) -> HealthResult(status(healthy), checkNames, messages)
+        val errorMessages = result.fold(_.map(identity).toList, _ => List())
+        statusCode(healthy) -> HealthResult(status(healthy), checkNames, errorMessages)
       }
     }
   }

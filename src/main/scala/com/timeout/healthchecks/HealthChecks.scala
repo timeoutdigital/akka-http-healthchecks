@@ -1,20 +1,15 @@
 package com.timeout.healthchecks
 
-import java.net.{Socket, URL}
+import java.net.{InetSocketAddress, Socket}
 
-import cats.syntax.all._
-
-import scala.util.Try
+import cats.data.{NonEmptyList, Validated}
 
 object HealthChecks {
 
-  def ping(host: String, port: Int) = healthCheck(s"Ping $host:$port", () => {
-    Try {
-      new Socket(host, port)
-      ().validNel[String]
-    }.recover {
-      case t: Throwable => t.getMessage.invalidNel
-    }.get
+  def ping(host: String, port: Int): HealthCheck = healthCheck(s"Ping $host:$port", () => {
+    Validated.catchNonFatal {
+      new Socket().connect(new InetSocketAddress(host, port), 250)
+      ()
+    }.leftMap(t => NonEmptyList(t.getMessage))
   })
-
 }

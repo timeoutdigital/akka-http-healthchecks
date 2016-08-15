@@ -43,7 +43,26 @@ class HeathChecksTest extends FunSpec with ScalaFutures with Matchers with Table
         r shouldEqual "check1 failed: exception".invalidNel
       }
     }
+  }
 
+  describe("Ping check") {
+    it ("should return ok for valid ping") {
+      whenReady(HealthChecks.ping("google.com", 80).run()) { r =>
+        r shouldEqual ().validNel[String]
+      }
+    }
+
+    it ("should return not ok for invalid host") {
+      whenReady(HealthChecks.ping("whatever", 80).run()) { r =>
+        r shouldEqual "Ping whatever:80 failed: whatever".invalidNel[Unit]
+      }
+    }
+
+    it ("should return not ok for invalid port") {
+      whenReady(HealthChecks.ping("google.com", 8890).run()) { r =>
+        r.isValid shouldEqual false
+      }
+    }
   }
 
 }
