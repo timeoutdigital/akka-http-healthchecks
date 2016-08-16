@@ -65,25 +65,25 @@ class HeathChecksTest extends FunSpec with ScalaFutures with Matchers with Table
     }
 
     it ("should return ok for valid url ping") {
-      whenReady(HealthChecks.ping("http://www.google.com:80").run()) { r =>
+      whenReady(HealthChecks.pingUrl("https://api.tableapp.com/partner/v1/restaurant-list").run()) { r =>
         r shouldEqual ().validNel[String]
       }
     }
 
     it ("should return ok for valid url ping without port") {
-      whenReady(HealthChecks.ping("http://www.google.com").run()) { r =>
+      whenReady(HealthChecks.pingUrl("http://www.google.com").run()) { r =>
         r shouldEqual ().validNel[String]
       }
     }
 
     it ("should return failure for invalid url") {
-      whenReady(HealthChecks.ping("whatever").run()) { r =>
+      whenReady(HealthChecks.pingUrl("whatever").run()) { r =>
         r.isValid shouldEqual false
       }
     }
 
     it ("should return failure for invalid host url") {
-      whenReady(HealthChecks.ping("http://whatever").run()) { r =>
+      whenReady(HealthChecks.pingUrl("http://whatever").run()) { r =>
         r.isValid shouldEqual false
       }
     }
