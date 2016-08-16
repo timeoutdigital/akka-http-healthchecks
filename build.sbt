@@ -1,13 +1,7 @@
-name := "health-check"
+name := "akka-http-healthchecks"
 version := "1.0.0"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
-
-val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
-
-val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
-
-publishTo := Some(timeOutReleases)
 
 val circeVersion = "0.5.0-M2"
 val akkaVersion = "2.4.9-RC2"
@@ -26,3 +20,10 @@ libraryDependencies ++= Seq(
 addCompilerPlugin(
   "org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full
 )
+
+val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
+
+val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
+
+publishTo := Some(timeOutReleases)
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
