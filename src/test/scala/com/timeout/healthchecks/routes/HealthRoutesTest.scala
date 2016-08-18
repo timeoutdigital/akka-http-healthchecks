@@ -10,8 +10,8 @@ class HealthRoutesTest extends FunSpec with ScalatestRouteTest with Matchers wit
 
   describe("Health route") {
     it ("should return correct response for healthy system") {
-      val ok1 = healthCheck("test1", () => ().validNel[String])
-      val ok2 = healthCheck("test2", () => ().validNel[String])
+      val ok1 = healthCheck("test1")(().validNel[String])
+      val ok2 = healthCheck("test2")(().validNel[String])
 
       Get("/health") ~> HealthRoutes.health(ok1, ok2) ~> check {
         status shouldEqual OK
@@ -20,9 +20,9 @@ class HealthRoutesTest extends FunSpec with ScalatestRouteTest with Matchers wit
     }
 
     it ("should return correct response for unhealthy system") {
-      val ok = healthCheck("test1", () => ().validNel[String])
-      val failed1 = healthCheck("test2", () => "failed".invalidNel[Unit])
-      val failed2 = healthCheck("test3", () => { throw new Exception("exception") })
+      val ok = healthCheck("test1")(().validNel[String])
+      val failed1 = healthCheck("test2")("failed".invalidNel[Unit])
+      val failed2 = healthCheck("test3")(throw new Exception("exception") )
 
       Get("/health") ~> HealthRoutes.health(ok, failed1, failed2) ~> check {
         status shouldEqual InternalServerError

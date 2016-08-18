@@ -15,10 +15,12 @@ object HealthChecks {
     }.leftMap(t => NonEmptyList(t.getMessage))
   }
 
-  def ping(host: String, port: Int, timeout: Int = defaultTimeout): HealthCheck = healthCheck(s"Ping $host:$port", () => doPing(host, port))
+  def ping(host: String, port: Int, timeout: Int = defaultTimeout): HealthCheck = healthCheck(s"Ping $host:$port") {
+    doPing(host, port)
+  }
 
-  def pingUrl(url: String, timeout: Int = defaultTimeout): HealthCheck = healthCheck(s"Ping $url", () => {
+  def pingUrl(url: String, timeout: Int = defaultTimeout): HealthCheck = healthCheck(s"Ping $url") {
     val parsedUri = Uri(url)
     doPing(parsedUri.authority.host.address(), parsedUri.effectivePort)
-  })
+  }
 }
