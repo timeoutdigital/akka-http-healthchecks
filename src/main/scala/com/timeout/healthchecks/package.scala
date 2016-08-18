@@ -20,6 +20,8 @@ package object healthchecks {
     }
   }
 
+  val healthy = ().validNel[String]
+
   def healthCheck(name: String)(c: => CheckResult): HealthCheck = new HealthCheck(name, Future.fromTry(Try(c)))
   def asyncHealthCheck(name: String)(c: => Future[CheckResult]): HealthCheck = new HealthCheck(name, c)
 
