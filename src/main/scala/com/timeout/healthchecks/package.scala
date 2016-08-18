@@ -13,14 +13,14 @@ package object healthchecks {
 
     private val addNameToErrorMessage: String => String = m => s"$name failed: $m"
 
-    def run()(implicit ec: ExecutionContext): Future[ValidatedNel[String, Unit]] = {
+    def run()(implicit ec: ExecutionContext): Future[CheckResult] = {
       check.recover {
         case t: Throwable => t.getMessage.invalidNel[Unit]
       }.map(_.leftMap(r => r.map(addNameToErrorMessage)))
     }
   }
 
-  def healthCheck(name: String)(c: => ValidatedNel[String, Unit]): HealthCheck = new HealthCheck(name, Future.fromTry(Try(c)))
+  def healthCheck(name: String)(c: => CheckResult): HealthCheck = new HealthCheck(name, Future.fromTry(Try(c)))
   def asyncHealthCheck(name: String)(c: => Future[CheckResult]): HealthCheck = new HealthCheck(name, c)
 
   type CheckResult = ValidatedNel[String, Unit]
