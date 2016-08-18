@@ -15,14 +15,14 @@ class HeathChecksTest extends FunSpec with ScalaFutures with Matchers with Table
 
   describe("healthCheck") {
     it ("should add check name to error message") {
-      val result = healthCheck("check1", () => "error".invalidNel).run()
+      val result = healthCheck("check1")("error".invalidNel).run()
       whenReady(result) { r =>
         r shouldEqual "check1 failed: error".invalidNel
       }
     }
 
     it ("should handle exceptions as failed checks") {
-      val result = healthCheck("check1", () => throw new RuntimeException("exception")).run()
+      val result = healthCheck("check1")(throw new RuntimeException("exception")).run()
       whenReady(result) { r =>
         r shouldEqual "check1 failed: exception".invalidNel
       }
@@ -31,14 +31,16 @@ class HeathChecksTest extends FunSpec with ScalaFutures with Matchers with Table
 
   describe("asyncHealthCheck") {
     it ("should add check name to error message") {
-      val result = asyncHealthCheck("check1", () => Future.successful("error".invalidNel)).run()
+      val result = asyncHealthCheck("check1")(Future.successful("error".invalidNel)).run()
       whenReady(result) { r =>
         r shouldEqual "check1 failed: error".invalidNel
       }
     }
 
     it ("should handle exceptions as failed checks") {
-      val result = asyncHealthCheck("check1", () => Future(throw new Exception("exception"))).run()
+      val result = asyncHealthCheck("check1") {
+        Future(throw new Exception("exception"))
+      }.run()
       whenReady(result) { r =>
         r shouldEqual "check1 failed: exception".invalidNel
       }
