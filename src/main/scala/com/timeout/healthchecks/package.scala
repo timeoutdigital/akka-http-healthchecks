@@ -2,7 +2,6 @@ package com.timeout
 
 import cats.data._
 import cats.syntax.validated._
-import cats.std.list._
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try

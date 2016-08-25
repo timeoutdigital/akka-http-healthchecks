@@ -12,7 +12,7 @@ object HealthChecks {
   private def doPing(host: String, port: Int, timeout: Int = defaultTimeout) = {
     Validated.catchNonFatal {
       new Socket().connect(new InetSocketAddress(host, port), timeout)
-    }.leftMap(t => NonEmptyList(t.getMessage))
+    }.leftMap(t => NonEmptyList.of(t.getMessage))
   }
 
   def ping(host: String, port: Int, timeout: Int = defaultTimeout): HealthCheck = healthCheck(s"Ping $host:$port") {

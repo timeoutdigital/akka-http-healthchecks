@@ -1,5 +1,5 @@
 name := "akka-http-healthchecks"
-version := "1.0.1"
+version := "1.1.0"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
 
@@ -9,7 +9,7 @@ val akkaVersion = "2.4.9-RC2"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % "test",
-  "org.typelevel" %% "cats" % "0.6.1",
+  "org.typelevel" %% "cats" % "0.7.0",
   "de.heikoseeberger" %% "akka-http-circe" % "1.8.0",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,

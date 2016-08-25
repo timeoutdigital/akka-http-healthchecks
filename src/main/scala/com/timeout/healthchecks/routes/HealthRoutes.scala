@@ -6,7 +6,7 @@ import de.heikoseeberger.akkahttpcirce.CirceSupport
 import io.circe.generic.JsonCodec
 import com.timeout.healthchecks._
 import cats.syntax.foldable._
-import cats.std.list._
+import cats.instances.list._
 
 import scala.collection.convert.DecorateAsScala
 import scala.concurrent.{ExecutionContext, Future}
