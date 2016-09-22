@@ -39,4 +39,6 @@ val healthRoute = HealthRoutes.health(pingGoogle, pingFacebook)
 Http().bindAndHandle(healthRoute, "0.0.0.0", 80)
 ```
 
-
+## License
+   
+MIT License for akka-http-healthchecks code. Scala License for the generated sys code.

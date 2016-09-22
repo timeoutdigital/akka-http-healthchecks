@@ -2,6 +2,8 @@ name := "akka-http-healthchecks"
 version := "1.1.0"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
+licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
+credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
 
 val circeVersion = "0.5.2"
 val akkaVersion = "2.4.11"
@@ -21,9 +23,9 @@ addCompilerPlugin(
   "org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full
 )
 
-val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
-
-val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
-
-publishTo := Some(timeOutReleases)
-credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+lazy val root = (project in file("."))
+  .settings(BintrayPlugin.bintrayPublishSettings: _*)
+  .settings(Seq(
+    bintrayOrganization := Some("timeoutdigital"),
+    bintrayRepository := "releases"
+  ))
