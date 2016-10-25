@@ -1,10 +1,12 @@
+
 name := "akka-http-healthchecks"
-version := "1.1.0"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
 
 val circeVersion = "0.5.2"
 val akkaVersion = "2.4.11"
+
+enablePlugins(GitVersioning)
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
@@ -25,5 +27,10 @@ val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
 
 val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
 
+bintrayOrganization := Some("timeoutdigital")
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+
 publishTo := Some(timeOutReleases)
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+
+git.useGitDescribe := true
