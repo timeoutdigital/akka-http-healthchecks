@@ -24,6 +24,7 @@ addCompilerPlugin(
 )
 
 bintrayOrganization := Some("timeoutdigital")
+bintrayRepository := "releases"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 git.useGitDescribe := true
