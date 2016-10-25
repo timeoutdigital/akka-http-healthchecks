@@ -3,14 +3,14 @@ version := "1.1.0"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
 
-val circeVersion = "0.5.0-M2"
-val akkaVersion = "2.4.9-RC2"
+val circeVersion = "0.5.2"
+val akkaVersion = "2.4.11"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % "test",
-  "org.typelevel" %% "cats" % "0.7.0",
-  "de.heikoseeberger" %% "akka-http-circe" % "1.8.0",
+  "org.typelevel" %% "cats" % "0.7.2",
+  "de.heikoseeberger" %% "akka-http-circe" % "1.10.1",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,
