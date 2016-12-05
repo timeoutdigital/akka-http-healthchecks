@@ -7,8 +7,6 @@ scala:
 jdk:
   - oraclejdk8
 
-sudo: required
-
 cache:
   directories:
     - $HOME/.ivy2/cache
@@ -19,10 +17,10 @@ before_cache:
   - find $HOME/.sbt -name "*.lock" -delete
 
 script:
-  sbt ++$TRAVIS_SCALA_VERSION test
+  - sbt ++$TRAVIS_SCALA_VERSION test
 
 after_success:
-  - if [[ ( "$TRAVIS_BRANCH" == "master" && "$TRAVIS_TAG" =~ "v\d+\.\d+\.\d+" ) ]]; then
+  - if [[ $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
       sh "$TRAVIS_BUILD_DIR/scripts/travis-bintray-credentials.sh";
       sbt ++$TRAVIS_SCALA_VERSION publish;
     fi

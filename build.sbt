@@ -32,7 +32,7 @@ lazy val root = (project in file("."))
     .enablePlugins(GitVersioning)
   .settings(BintrayPlugin.bintrayPublishSettings: _*)
   .settings(Seq(
-    bintrayOrganization := Some("argast"),
-    bintrayRepository := "maven",
+    bintrayOrganization := Some("timeoutdigital"),
+    bintrayRepository := "releases",
     git.useGitDescribe := true
   ))
