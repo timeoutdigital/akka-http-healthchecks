@@ -1,5 +1,4 @@
 name := "akka-http-healthchecks"
-version := "1.2.0"
 scalaVersion := "2.12.0"
 organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
@@ -30,8 +29,10 @@ addCompilerPlugin(
 import BintrayPlugin.autoImport._
 
 lazy val root = (project in file("."))
+    .enablePlugins(GitVersioning)
   .settings(BintrayPlugin.bintrayPublishSettings: _*)
   .settings(Seq(
     bintrayOrganization := Some("timeoutdigital"),
-    bintrayRepository := "releases"
+    bintrayRepository := "releases",
+    git.useGitDescribe := true
   ))

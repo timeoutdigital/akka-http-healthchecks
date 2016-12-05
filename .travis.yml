@@ -22,7 +22,7 @@ script:
   sbt ++$TRAVIS_SCALA_VERSION test
 
 after_success:
-  - if [[ ( "$TRAVIS_BRANCH" == "master" || "$TRAVIS_PULL_REQUEST" == "false" ) ]]; then
+  - if [[ ( "$TRAVIS_BRANCH" == "master" && "$TRAVIS_TAG" =~ "v\d+\.\d+\.\d+" ) ]]; then
       sh "$TRAVIS_BUILD_DIR/scripts/travis-bintray-credentials.sh";
       sbt ++$TRAVIS_SCALA_VERSION publish;
     fi
