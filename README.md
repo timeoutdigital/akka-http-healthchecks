@@ -6,6 +6,7 @@ Health check is a function that returns cats ```ValidatedNel[String, Unit]```. I
  
 You can add it to your build by including these lines in your sbt file:
    
+   
 ```
     resolvers += Resolver.bintrayRepo("timeoutdigital","releases")
     
