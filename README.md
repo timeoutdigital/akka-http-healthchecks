@@ -1,9 +1,18 @@
-# Simple healthcheck library for akka-http
+# Simple healthcheck library for akka-http [![Build Status](https://travis-ci.org/timeoutdigital/akka-http-healthchecks.svg?branch=master)](https://travis-ci.org/timeoutdigital/akka-http-healthchecks)
 
 This library contains a simple health check implementation with corresponding route for akka http.
  
 Health check is a function that returns cats ```ValidatedNel[String, Unit]```. Invalid value should contain reason why healthcheck failed. 
  
+You can add it to your build by including these lines in your sbt file:
+   
+   
+```
+    resolvers += Resolver.bintrayRepo("timeoutdigital","releases")
+    
+    libraryDependencies += "com.timeout" %% "akka-http-healthchecks" % "1.1.1"
+```   
+   
 Here are some examples how to use it:
 
 ```scala

@@ -1,0 +1,29 @@
+language: scala
+
+scala:
+  - 2.11.8
+  - 2.12.0
+
+jdk:
+  - oraclejdk8
+
+sudo: required
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+
+before_cache:
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+  - find $HOME/.sbt -name "*.lock" -delete
+
+script:
+  sbt ++$TRAVIS_SCALA_VERSION test
+
+after_success:
+  - if [[ ( "$TRAVIS_BRANCH" == "master" && "$TRAVIS_TAG" =~ "v\d+\.\d+\.\d+" ) ]]; then
+      sh "$TRAVIS_BUILD_DIR/scripts/travis-bintray-credentials.sh";
+      sbt ++$TRAVIS_SCALA_VERSION publish;
+    fi
+

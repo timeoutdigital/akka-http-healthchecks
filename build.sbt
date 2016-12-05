@@ -1,16 +1,21 @@
 name := "akka-http-healthchecks"
-version := "1.1.0"
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.0"
 organization := "com.timeout"
+licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
+credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
 
-val circeVersion = "0.5.2"
-val akkaVersion = "2.4.11"
+val circeVersion = "0.6.1"
+val akkaVersion = "2.4.14"
+val akkaHttpVersion = "10.0.0"
+val catsVersion = "0.8.1"
+
+crossScalaVersions := Seq("2.11.8", "2.12.0")
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
-  "com.typesafe.akka" %% "akka-http-testkit" % akkaVersion % "test",
-  "org.typelevel" %% "cats" % "0.7.2",
-  "de.heikoseeberger" %% "akka-http-circe" % "1.10.1",
+  "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % "test",
+  "org.typelevel" %% "cats" % catsVersion,
+  "de.heikoseeberger" %% "akka-http-circe" % "1.11.0",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,
@@ -21,9 +26,13 @@ addCompilerPlugin(
   "org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full
 )
 
-val timeOutNexus = "http://nexus.repo.timeout.com/nexus/content/repositories/"
+import BintrayPlugin.autoImport._
 
-val timeOutReleases = "TimeOut Releases" at timeOutNexus + "releases"
-
-publishTo := Some(timeOutReleases)
-credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+lazy val root = (project in file("."))
+    .enablePlugins(GitVersioning)
+  .settings(BintrayPlugin.bintrayPublishSettings: _*)
+  .settings(Seq(
+    bintrayOrganization := Some("argast"),
+    bintrayRepository := "maven",
+    git.useGitDescribe := true
+  ))
