@@ -3,9 +3,25 @@ package com.timeout.healthchecks
 import java.net.{InetSocketAddress, Socket}
 
 import akka.http.scaladsl.model.Uri
+import cats.Semigroup
 import cats.data.{NonEmptyList, Validated}
 
 object HealthChecks {
+  sealed trait Severity {
+    val fatal: Boolean
+  }
+  trait Fatal extends Severity {
+    val fatal = true
+  }
+
+  trait NonFatal extends Severity {
+    val fatal = false
+  }
+
+  object Severity {
+    case object Fatal extends Fatal
+    case object NonFatal extends NonFatal
+  }
 
   private val defaultTimeout = 1000
 
