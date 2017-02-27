@@ -1,5 +1,5 @@
 name := "akka-http-healthchecks"
-version := "1.2.2"
+version := "1.2.3-SNAPSHOT"
 scalaVersion := "2.11.8"
 organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
