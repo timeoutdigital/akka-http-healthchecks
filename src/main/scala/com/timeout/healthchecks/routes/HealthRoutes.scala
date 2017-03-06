@@ -3,17 +3,16 @@ package com.timeout.healthchecks.routes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import cats.data.Validated.{Invalid, Valid}
-import de.heikoseeberger.akkahttpcirce.CirceSupport
+import de.heikoseeberger.akkahttpcirce.CirceSupport._
 import io.circe.generic.JsonCodec
 import com.timeout.healthchecks._
 import cats.syntax.foldable._
 import cats.instances.list._
-import cats.data.Xor._
 
 import scala.collection.convert.DecorateAsScala
 import scala.concurrent.{ExecutionContext, Future}
 
-object HealthRoutes extends CirceSupport with DecorateAsScala {
+object HealthRoutes extends DecorateAsScala {
 
   @JsonCodec case class HealthResult(status: String, checks: Seq[String], failures: Seq[String])
 
