@@ -3,7 +3,7 @@ package com.timeout.healthchecks.routes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import cats.data.Validated.{Invalid, Valid}
-import de.heikoseeberger.akkahttpcirce.CirceSupport._
+import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
 import io.circe.generic.JsonCodec
 import com.timeout.healthchecks._
 import cats.syntax.foldable._

@@ -1,9 +1,11 @@
 name := "akka-http-healthchecks"
-version := "1.3.0"
+version := "1.3.0-SNAPSHOT"
 scalaVersion := "2.11.11"
 organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
+
+ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
 val circeVersion = "0.8.0"
 val akkaVersion = "2.4.19"
@@ -13,7 +15,6 @@ val scalaTestVersion = "3.0.3"
 val akkaHttpCirceVersion = "1.16.1"
 
 libraryDependencies ++= Seq(
-  "org.scala-lang" % "scala-reflect" % "2.11.11",
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "org.typelevel" %% "cats" % catsVersion,
   "de.heikoseeberger" %% "akka-http-circe" % akkaHttpCirceVersion,
