@@ -1,9 +1,12 @@
 name := "akka-http-healthchecks"
 version := "1.4.0"
-scalaVersion := "2.11.11"
+scalaVersion := "2.12.2"
 organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
+
+releaseCrossBuild := true
+crossScalaVersions := Seq("2.11.11", "2.12.2")
 
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
@@ -23,7 +26,6 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-parser" % circeVersion,
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % "test",
   "org.scalatest" %% "scalatest" % scalaTestVersion % "test"
-    exclude("org.scala-lang.modules", "scala-xml_2.11")
 )
 
 addCompilerPlugin(
