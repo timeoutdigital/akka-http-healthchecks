@@ -1,6 +1,5 @@
 name := "akka-http-healthchecks"
-version := "1.4.0"
-scalaVersion := "2.12.2"
+scalaVersion := "2.11.11"
 organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
