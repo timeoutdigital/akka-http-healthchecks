@@ -3,7 +3,6 @@ scalaVersion := "2.11.11"
 organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 credentials += Credentials(Path.userHome / ".bintray" / ".credentials")
-
 releaseCrossBuild := true
 crossScalaVersions := Seq("2.11.11", "2.12.2")
 
@@ -11,7 +10,7 @@ ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
 val circeVersion = "0.8.0"
 val akkaVersion = "2.4.19"
-val akkaHttpVersion = "10.0.8"
+val akkaHttpVersion = "10.0.9"
 val catsVersion = "0.9.0"
 val scalaTestVersion = "3.0.3"
 val akkaHttpCirceVersion = "1.16.1"
