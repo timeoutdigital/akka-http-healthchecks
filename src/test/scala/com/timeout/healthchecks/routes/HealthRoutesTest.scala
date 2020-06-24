@@ -2,12 +2,14 @@ package com.timeout.healthchecks.routes
 
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import org.scalatest.{FunSpec, Matchers, OneInstancePerTest}
 import cats.syntax.all._
 import com.timeout.healthchecks.HealthChecks.Severity.NonFatal
 import com.timeout.healthchecks._
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
-class HealthRoutesTest extends FunSpec with ScalatestRouteTest with Matchers with OneInstancePerTest {
+class HealthRoutesTest extends AnyFunSpec with ScalatestRouteTest with Matchers with OneInstancePerTest {
 
   describe("Health route") {
     it ("should return correct response for healthy system") {

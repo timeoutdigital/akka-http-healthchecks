@@ -3,7 +3,6 @@ package com.timeout.healthchecks
 import java.net.{InetSocketAddress, Socket}
 
 import akka.http.scaladsl.model.Uri
-import cats.Semigroup
 import cats.data.{NonEmptyList, Validated}
 
 object HealthChecks {
