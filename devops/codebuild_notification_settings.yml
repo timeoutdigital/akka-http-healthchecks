@@ -1,0 +1,2 @@
+email_for_failed_merge_to_master: dss@timeout.com
+slack_channel_for_failed_merge_to_master: dss-team

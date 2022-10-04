@@ -1,0 +1,26 @@
+# https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html
+
+version: 0.2
+
+env:
+  shell: bash
+  parameter-store:
+    NEXUS_REPO_PASSWORD: NEXUS_REPO_PASSWORD
+
+phases:
+
+  install:
+    runtime-versions:
+      java: openjdk8
+    commands:
+    - mkdir -p /root/.ivy2/cache
+    - java -version
+    - |
+        echo "realm=Sonatype Nexus Repository Manager
+        host=nexus.timeout.com
+        user=deployment" > /root/.ivy2/.credentials
+    - echo "password=$NEXUS_REPO_PASSWORD" >> /root/.ivy2/.credentials
+
+  build:
+    commands:
+    - java -Dsbt.log.noformat=true -jar /usr/local/bin/sbt/bin/sbt-launch.jar test

@@ -5,7 +5,6 @@ organization := "com.timeout"
 licenses += ("MIT", url("https://opensource.org/licenses/MIT"))
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 releaseCrossBuild := true
-//ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
 val circeVersion = "0.13.0"
 val akkaVersion = "2.6.6"
@@ -31,9 +30,3 @@ libraryDependencies ++= Seq(
 resolvers ++= Seq(
   "MySql driver" at "https://nexus.timeout.com/content/repositories",
 )
-lazy val root = (project in file("."))
-  .settings(BintrayPlugin.bintrayPublishSettings: _*)
-  .settings(Seq(
-    bintrayOrganization := Some("timeoutdigital"),
-    bintrayRepository := "releases"
-  ))
