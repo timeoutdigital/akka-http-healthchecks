@@ -49,6 +49,13 @@ class HeathChecksTest extends AnyFunSpec with ScalaFutures with Matchers with Ta
   }
 
   describe("Ping check") {
+
+    it("should return ok for valid database ping") {
+      whenReady(HealthChecks.pingDataBase("sdb.gp-db.dev.timeout.com", 3306, "sdbuser", "thepword").run()) { r =>
+        r shouldEqual ().validNel[String]
+      }
+    }
+
     it ("should return ok for valid ping") {
       whenReady(HealthChecks.ping("google.com", 80).run()) { r =>
         r shouldEqual ().validNel[String]
