@@ -11,7 +11,7 @@ phases:
 
   install:
     runtime-versions:
-      java: openjdk8
+      java: corretto8
     commands:
     - mkdir -p /root/.ivy2/cache
     - java -version
@@ -23,4 +23,4 @@ phases:
 
   build:
     commands:
-    - java -Dsbt.log.noformat=true -jar /usr/local/bin/sbt/bin/sbt-launch.jar test
+    - sbt -Dsbt.log.noformat=true test
