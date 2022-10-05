@@ -13,9 +13,8 @@ phases:
 
   install:
     runtime-versions:
-      java: openjdk8
+      java: corretto8
     commands:
-    - $(aws ecr get-login --no-include-email)
     - docker login --username timeoutgroup --password $DOCKERHUB_PASSWORD
     - mkdir -p /root/.ivy2/cache
     - java -version
@@ -27,4 +26,4 @@ phases:
 
   build:
     commands:
-    - java -Dsbt.log.noformat=true -jar /usr/local/bin/sbt/bin/sbt-launch.jar test
+    - sbt -Dsbt.log.noformat=true test
